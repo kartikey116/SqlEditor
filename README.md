@@ -38,17 +38,29 @@ The platform is designed to look like a premium, modern developer tool. We aband
 
 ---
 
-## 🏗️ Technology Choices & Justification
+## 🛡️ Security Implementation (Validation & Sanitization)
 
-To build a secure, real-time code-execution platform without needing massive Docker infrastructure, the architecture leans on a dual-database pattern separating our NoSQL "State" from our SQL "Execution".
+Because CipherSQLStudio executes arbitrary SQL provided by users, we implemented a dual-layer security model to prevent SQL Injection (SQLi) and malicious database modification:
 
-| Technology | Role inside CipherSQLStudio | Why we chose it (Comparative Advantage) |
+1.  **Regex Pre-Validation Filter (Application Layer):** 
+    Before any query reaches the database driver, the Express backend passes the raw SQL through an `isSafeQuery` regex filter. This aggressively blocks execution of destructive commands (like `DROP`, `DELETE`, `UPDATE`, `INSERT`, `ALTER`, `TRUNCATE`, `GRANT`, `COPY`) before they leave the Node server. We strictly lock the platform down to `SELECT` and `WITH` (CTE) statements.
+    
+2.  **Transactional Rollbacks (Database Layer):** 
+    As a fail-safe, the entire execution flow—from creating temporary schemas to loading sample data and executing the user query—is wrapped in a strict PostgreSQL `BEGIN ... ROLLBACK` transaction block. Even if a user somehow circumnavigated the regex filter and dropped a table, the transaction is forcefully reversed at the end of the API call, ensuring zero permanent changes are committed to NeonDB.
+
+---
+
+## 🏗️ Technology Stack
+
+We constructed a highly secure, real-time code-execution platform by separating our application state (NoSQL) from our execution environments (SQL).
+
+| Technology | Role inside CipherSQLStudio | Why we chose it for this project |
 | :--- | :--- | :--- |
-| **React (Vite)** | Frontend UI | **Why not Next.js?** We don't need SSR for a highly interactive, authenticated application state. Vite acts as a lightning-fast build tool, providing instant HMR for developing the complex 3D CSS effects comfortably. |
-| **Express (Node.js)** | Backend Orchestrator | **Why not Python/Django?** V8 Javascript engines possess highly efficient asynchronous I/O event loops. Since the backend's primary job is proxying data between MongoDB, NeonDB, and Gemini concurrently, Node.js non-blocking architecture is ideal to prevent execution bottlenecking. |
-| **MongoDB** | State & Metadata Datastore | **Why not store everything in PostgreSQL?** MongoDB is schemaless. Assignments require wildly different configurations of `sampleTables` (some need 1 table with 3 columns, others need 4 tables with 10 columns). Storing variable JSON `expectedOutput` graphs is deeply native to MongoDB's BSON document structure. |
-| **NeonDB (PostgreSQL)** | Query Execution Engine | **Why not SQLite?** SQLite lacks advanced server-side features. NeonDB is Serverless Postgres. Because PostgreSQL supports **Transactional DDL**, we can `BEGIN` a transaction, create temporary tables, insert data, execute the user's query, and then safely `ROLLBACK` to keep the DB perfectly clean. MySQL cannot rollback table creation. |
-| **SCSS (Sass)** | CSS Preprocessor | **Why not Tailwind?** Tailwind makes highly-specific 3D keyframes, deep `perspective()`, multi-layered `translateZ` layouts, and dynamic radial-gradients clunky. SCSS mixins and variables allow us to orchestrate a "premium" UI far easier. |
+| **React (Vite)** | Frontend UI | Provides a lightning-fast development environment with instant HMR, which was crucial for developing our complex CSS 3D effects and real-time editor state. |
+| **Express (Node.js)** | Backend Server | Offers highly efficient asynchronous I/O. Its non-blocking architecture is ideal for securely proxying data, implementing query validation/sanitization, and managing concurrent requests to MongoDB, NeonDB, and Gemini. |
+| **MongoDB** | State & Metadata | Schemaless document storage perfectly handles assignments holding wildly variable configurations. Storing dynamic JSON configurations like `sampleTables` and `expectedOutput` graphs is deeply native to MongoDB's BSON structure. |
+| **NeonDB (PostgreSQL)** | Query Execution Engine | Provides crucial Serverless Postgres capabilities. Because PostgreSQL supports **Transactional DDL**, we can safely provision temporary data, execute the user's potentially destructive SQL queries inside a sandbox, and perform an instant `ROLLBACK` to guarantee a permanently clean database. |
+| **SCSS (Sass)** | Styling Architecture | CSS preprocessors allow for complex logic using mixins, variables, and nested rules, which gave us the granular control necessary to manually orchestrate deep 3D keyframe animations and multi-layered glassmorphic shadow variables. |
 
 ---
 
