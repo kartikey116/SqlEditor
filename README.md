@@ -12,7 +12,7 @@ It is specifically designed with a premium 3D-aesthetic frontend utilizing advan
 
 ---
 
-## 🎨 UI / UX & 3D Aesthetics
+##  UI / UX & 3D Aesthetics
 
 The platform is designed to look like a premium, modern developer tool. We abandoned flat styling in favor of deep volumetric CSS properties:
 
@@ -29,7 +29,7 @@ The platform is designed to look like a premium, modern developer tool. We aband
 
 ---
 
-## 🌟 Key Features
+## Key Features
 - **Isolated SQL Sandboxes:** Users execute real SQL queries within dynamically provisioned PostgreSQL schemas that immediately rollback after execution, keeping the primary database forever pristine.
 - **AI-Powered Hints:** Integrated with Gemini AI to analyze the user's specific SQL query and schema structure to provide non-giveaway, educational hints.
 - **Premium 3D Aesthetics:** Volumetric spherical backgrounds, dynamic mouse-tracking glare reflections, deep box-shadow glassmorphism, and responsive 3D card tilts built purely with native CSS.
@@ -38,7 +38,7 @@ The platform is designed to look like a premium, modern developer tool. We aband
 
 ---
 
-## 🛡️ Security Implementation (Validation & Sanitization)
+## Security Implementation (Validation & Sanitization)
 
 Because CipherSQLStudio executes arbitrary SQL provided by users, we implemented a dual-layer security model to prevent SQL Injection (SQLi) and malicious database modification:
 
@@ -50,7 +50,7 @@ Because CipherSQLStudio executes arbitrary SQL provided by users, we implemented
 
 ---
 
-## 🏗️ Technology Stack
+## Technology Stack
 
 We constructed a highly secure, real-time code-execution platform by separating our application state (NoSQL) from our execution environments (SQL).
 
@@ -64,7 +64,7 @@ We constructed a highly secure, real-time code-execution platform by separating 
 
 ---
 
-## 🚀 Local Setup Instructions
+##  Local Setup Instructions
 
 ### Prerequisites
 - Node.js (v18+)
@@ -74,7 +74,7 @@ We constructed a highly secure, real-time code-execution platform by separating 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/kartikey116/SqlEditor.git
-cd CipherSQLStudio
+cd SqlEditor
 ```
 
 ### 2. Environment Variables (.env)
