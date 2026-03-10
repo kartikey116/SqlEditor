@@ -1,0 +1,347 @@
+@import '../styles/variables';
+
+.attempt-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    gap: 1rem;
+    color: $muted;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 2px solid rgba($cyan, .2);
+    border-top-color: $cyan;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// ── Layout ────────────────────────────────────────────────────────
+.attempt-layout {
+    display: flex;
+    height: calc(100vh - 64px);
+    overflow: hidden;
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+}
+
+// ── Left Panel ────────────────────────────────────────────────────
+.left-panel {
+    width: 360px;
+    min-width: 320px;
+    max-width: 400px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.2));
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 10;
+
+    @media (max-width: 767px) {
+        width: 100%;
+        max-width: 100%;
+        border-right: none;
+        border-bottom: 1px solid $border;
+    }
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: $muted;
+    font-size: 0.82rem;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+
+    &:hover {
+        color: $text;
+    }
+}
+
+.challenge-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.challenge-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #f1f5f9;
+    line-height: 1.3;
+}
+
+.challenge-q {
+    font-size: 0.85rem;
+    color: $muted;
+    line-height: 1.65;
+}
+
+.ch-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.ch-solved-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: rgba($green, 0.12);
+    color: $green;
+    border: 1px solid rgba($green, 0.3);
+}
+
+.attempt-count-badge {
+    font-size: 0.72rem;
+    color: $muted;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid $border;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    align-self: flex-start;
+}
+
+// ── Recent Attempts ───────────────────────────────────────────────
+.attempts-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.attempt-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid $border;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: rgba(255, 255, 255, 0.02);
+
+    &:hover {
+        border-color: rgba($cyan, 0.3);
+        background: rgba($cyan, 0.04);
+    }
+
+    &.correct {
+        border-color: rgba($green, 0.2);
+    }
+
+    &.wrong {
+        border-color: rgba($red, 0.15);
+    }
+}
+
+.attempt-icon {
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.attempt-sql {
+    font-size: 0.68rem;
+    color: $muted;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+// ── Schema ────────────────────────────────────────────────────────
+.schema-section,
+.sample-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.schema-heading {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: $muted;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.schema-table {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid $border;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.schema-table-name {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.75rem;
+    background: rgba($cyan, .06);
+    color: $cyan;
+    font-weight: 600;
+}
+
+.schema-cols {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+
+    th {
+        padding: 0.35rem 0.75rem;
+        color: $muted;
+        font-weight: 600;
+        text-align: left;
+        border-bottom: 1px solid $border;
+    }
+
+    td {
+        padding: 0.3rem 0.75rem;
+        color: $text;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+}
+
+.type-col {
+    color: $purple;
+}
+
+.sample-scroll {
+    overflow-x: auto;
+    border: 1px solid $border;
+    border-radius: 8px;
+}
+
+// ── Right Panel ───────────────────────────────────────────────────
+.right-panel {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.2);
+
+    @media (max-width: 767px) {
+        padding: 1rem;
+    }
+}
+
+// ── Verdict Banner ────────────────────────────────────────────────
+.verdict-banner {
+    padding: 0.9rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transform-origin: top center;
+    animation: flipIn3D 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+
+    &.pass {
+        background: linear-gradient(135deg, rgba($green, 0.15), rgba($cyan, 0.1));
+        color: $green;
+        border: 1px solid rgba($green, 0.4);
+        text-shadow: 0 0 10px rgba($green, 0.3);
+    }
+
+    &.fail {
+        background: linear-gradient(135deg, rgba($red, 0.15), rgba($amber, 0.1));
+        color: $red;
+        border: 1px solid rgba($red, 0.4);
+        text-shadow: 0 0 10px rgba($red, 0.3);
+    }
+}
+
+@keyframes flipIn3D {
+    0% {
+        opacity: 0;
+        transform: perspective(600px) rotateX(-60deg) translateY(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: perspective(600px) rotateX(0deg) translateY(0);
+    }
+}
+
+// ── Editor ────────────────────────────────────────────────────────
+.editor-wrap {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid $border;
+    background: #1e1e1e;
+}
+
+.editor-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid $border;
+}
+
+// ── Actions ───────────────────────────────────────────────────────
+.editor-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.run-btn {
+    min-width: 140px;
+    justify-content: center;
+}
+
+// ── Results ───────────────────────────────────────────────────────
+.results-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.5rem;
+}
+
+.results-heading {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: $muted;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+}
+
+.results-container {
+    flex: 1;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}

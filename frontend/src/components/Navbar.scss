@@ -1,0 +1,113 @@
+@import '../styles/variables';
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 64px;
+    background: rgba($bg, 0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid $border;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.5px;
+    color: $text;
+
+    span {
+        color: $cyan;
+    }
+}
+
+.nav-logo-icon {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, $cyan, $purple);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 0.85rem;
+}
+
+.nav-links {
+    display: none;
+    list-style: none;
+    align-items: center;
+    gap: 1.5rem;
+
+    @include sm {
+        display: flex;
+    }
+
+    a {
+        color: $muted;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: color 0.2s;
+
+        &:hover,
+        &.active {
+            color: $text;
+        }
+    }
+
+    .nav-cta {
+        background: linear-gradient(135deg, $cyan, $purple);
+        color: #fff !important;
+        padding: 0.45rem 1.1rem;
+        border-radius: 8px;
+        font-weight: 600 !important;
+        transition: opacity 0.2s;
+
+        &:hover {
+            opacity: 0.85;
+        }
+    }
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: $muted;
+}
+
+.nav-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $cyan, $purple);
+    display: grid;
+    place-items: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.nav-logout {
+    background: none;
+    border: 1px solid $border;
+    color: $muted;
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+
+    &:hover {
+        border-color: $red;
+        color: $red;
+    }
+}

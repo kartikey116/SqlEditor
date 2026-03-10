@@ -1,0 +1,10 @@
+5data_flow_diagram.md
+data_flow_diagram.md.resolved
+CipherSchools.pdf
+CipherSQLStudio - Helping Guide.pdf
+
+# Dependencies
+node_modules
+.env
+.env.*
+!.env.example

@@ -1,0 +1,38 @@
+// ─── Color Tokens ───────────────────────────────────────────────
+$bg:         #080b12;
+$bg2:        #0e1420;
+$surface:    rgba(255, 255, 255, 0.04);
+$border:     rgba(255, 255, 255, 0.08);
+$border-h:   rgba(0, 212, 255, 0.3);
+$cyan:       #00d4ff;
+$purple:     #9b59f5;
+$pink:       #f564d4;
+$green:      #22c55e;
+$amber:      #f59e0b;
+$red:        #ef4444;
+$text:       #e2e8f0;
+$muted:      #64748b;
+$radius:     16px;
+$radius-sm:  10px;
+
+// ─── Breakpoints (mobile-first) ─────────────────────────────────
+$bp-xs:  320px;
+$bp-sm:  641px;
+$bp-md:  1024px;
+$bp-lg:  1281px;
+
+// ─── Mixins ──────────────────────────────────────────────────────
+@mixin sm   { @media (min-width: #{$bp-sm})  { @content; } }
+@mixin md   { @media (min-width: #{$bp-md})  { @content; } }
+@mixin lg   { @media (min-width: #{$bp-lg})  { @content; } }
+
+// ─── Gradient helpers ────────────────────────────────────────────
+@mixin gradient-text {
+  background: linear-gradient(135deg, $cyan 0%, $purple 50%, $pink 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+@mixin glow($color: $cyan, $spread: 20px) {
+  box-shadow: 0 0 #{$spread} rgba($color, 0.3);
+}
