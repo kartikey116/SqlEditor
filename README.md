@@ -73,7 +73,7 @@ We constructed a highly secure, real-time code-execution platform by separating 
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/ciphersqlstudio.git
+git clone https://github.com/kartikey116/SqlEditor.git
 cd CipherSQLStudio
 ```
 
